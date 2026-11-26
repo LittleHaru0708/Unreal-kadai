@@ -1,0 +1,1024 @@
+
+ログイン
+
+ff14  のエクサフレアをアンリアルエンジンで作ってるサイト
+
+もしかして、探しているのは FF14のエクサフレアなどのギミックを、Unreal Engine（UE）で再現・作成できるサイトかな？
+
+検索したところ、かなり近そうなものが見つかったよ！
+
+StratMotion
+Luke Forest 日記「凡人によるエクサフレアの避け方（タイミングと注意点）」 | FINAL FANTASY XIV, The Lodestone
+ 
+FF14専用のギミック解説ツール。
+
+エクサフレアなど30種類以上の予兆・マーカー
+
+アイコンを配置してドラッグで移動ルートを作成
+
+タイムラインで発動タイミングを調整
+
+MP4動画として書き出し
+
+サイト： https://join.strat-motion.com/ 
+
+
+teapawt
++1
+ただし、これはUE製ではなくブラウザ上で動くギミック解説ツールだよ。
+
+確認したいんだけど、探しているのはどっち？
+
+UE5でFF14のエクサフレアを3Dで再現しているサイト・作品
+
+ブラウザ上でエクサフレアを配置して、ギミック動画を作れるサイト
+
+Unreal Engineでエクサフレアのエフェクト素材を作っている人のサイト
+
+
+
+１
+
+UE5でFF14の戦闘を再現している作品なら、かなり近いものが見つかった！
+
+見つかった候補
+Steam Workshop
+ 
+1. FF14「Iconoclasm」をUnreal Engineで再現するプロジェクト
+
+FF14の「希望の園エデン：共鳴編4層」の戦闘をUEで再現しているファン制作プロジェクト。
+
+Unreal Engineを使用
+
+ボス戦やギミックの再現を目指している
+
+Redditの制作記事・動画 
+
+Reddit
+GitHub - Dragonsongs-Reprise-Simulator/Simulator · GitHub
+ 
+2. DSR Exaflare Helper
+
+エクサフレアを実際に動かして練習できるシミュレーター。
+
+ブラウザで遊ぶ（itch.io） 
+
+itch.io
+ちょっと確認したい！
+
+探しているのは、FF14のキャラクターやボス、フィールドまでUE5で再現して、エクサフレアが実際に地面を移動して爆発するような3D映像のサイトかな？
+
+それともエクサフレアのエフェクト単体をUEで作っている作品？
+
+
+FF14のエクサフレア制作に関連する3DCG学習講座も選択肢の一つです。
+詳細を見る
+
+
+デジタルハリウッド
+CG業界への最短距離
+3DCG・VFXのスキルを効率よく習得。仕事や学業と両立しながらクリエイターを目指せます。
+広告
+
+
+実際に作るには？
+
+FF14のエクサフレアをUnreal Engine 5（UE5）で実際に作るなら、Niagara（ナイアガラ）＋マテリアル＋Blueprintを使うのがおすすめ！
+
+まずは、FF14のように地面に予兆が出て、一定間隔で爆発しながら直線的に移動するエクサフレアを作ってみよう。
+
+完成イメージ
+Should Final Fantasy XIV have an offline adaptation?
+ 
+Niagara Ground Explosion vfx  Realistic pack 1 | Fab
+ 
+Luke Forest 日記「凡人によるエクサフレアの避け方（タイミングと注意点）」 | FINAL FANTASY XIV, The Lodestone
+
+ 
+作るものは大きく4つ。
+
+地面に表示する予兆マーカー
+
+爆発エフェクト
+
+次の爆発地点への移動処理
+
+一定間隔で繰り返す制御
+
+1. UE5でプロジェクトを作る
+Unreal Engine 5をインストール
+
+新規プロジェクト → Games → Blank
+
+Starter Contentを有効化
+
+Niagaraが使えることを確認
+
+公式入門：Niagara Getting Started 
+
+2. 地面の予兆を作る
+Luke Forest 日記「凡人によるエクサフレアの避け方（タイミングと注意点）」 | FINAL FANTASY XIV, The Lodestone
+ 
+最初はNiagaraを使わず、Plane（平面）とマテリアルで作ると簡単。
+
+Planeを地面に配置
+
+矢印や円形のテクスチャを作る
+
+Emissive Colorで発光させる
+
+Opacityで透明度を調整する
+
+これでエクサフレアの予兆ができる。
+
+3. 爆発エフェクトを作る
+-  Stylized Explosion VFX Breakdown - Materials&Niagara | Unreal Engine
+
+
+- Everything you see here is made by Unreal Engine's content files folder. Everything is stock. it was challenge for me and I… | Tsotne Tkemaladze
+ 
+Niagaraで以下を組み合わせる。
+
+Sprite：火花や光
+
+Mesh：爆発のリング
+
+Material：発光と透明化
+
+Scale：時間経過で拡大
+
+Color：白からオレンジへ変化
+
+4. エクサフレアの移動を作る
+ここが重要！
+
+Blueprintで制御する。
+
+BP_Exaflare の処理イメージ
+
+エクサフレア開始
+予兆を表示
+一定時間待機
+爆発エフェクト再生
+次の地点に移動して繰り返す
+Blueprintでは Set Timer by Event を使うと、一定間隔で爆発を繰り返せる。
+
+5. 参考になるチュートリアル
+Epic公式 Niagara チュートリアル 
+
+Niagara Quick Start 
+
+Niagaraでビーム・衝撃波を作るチュートリアル 
+
+どのレベルまで作りたい？
+① 作りたいもの
+
+
+エフェクトだけ作りたい
+
+3DでFF14のエクサフレアを完全再現したい
+
+ボス戦やフィールドも再現したい
+② UE5の経験
+
+
+初心者（触ったことがない）
+
+少し触ったことがある
+
+Blueprint・Niagaraを使える
+③ 見た目
+
+
+FF14そのままに近い見た目
+
+リアルで高品質な3D
+
+シンプルなギミック再現
+回答に合わせて、UE5の画面操作からBlueprintのノード構成まで順番に説明できるよ。
+
+
+ログインすると、あなたに合わせた手順ガイドを利用できます。
+
+
+ログイン
+
+無料で新規登録
+
+作りたいもの：3DでFF14のエクサフレアを完全再現したい。経験：UE5でBlueprintやNiagaraを使える。見た目：FF14に近い見た目。具体的なUE5の制作手順を最初から教えて。
+
+今回は、単なる爆発エフェクトではなく、FF14のレイドで見るエクサフレアを3D空間で再現することを目標にしよう。
+
+UE5のBlueprintとNiagaraが使えるなら、かなり本格的なものが作れるよ。
+
+おすすめの構成は、次のとおり。
+
+Blueprint：爆発位置、発生間隔、進行方向、回数を管理
+
+Niagara：爆発、火花、衝撃波、煙を描画
+
+Material：地面の予兆、矢印、発光表現
+
+Static Mesh：地面の予兆形状や衝撃波の形状
+
+Timeline：予兆の点滅やフェード制御
+
+最初から複雑なNiagaraを作るのではなく、まず1発のエクサフレアを完成させ、それを連続発生させる構成にする。
+
+完成させるエクサフレア
+Luke Forest 日記「凡人によるエクサフレアの避け方（タイミングと注意点）」 | FINAL FANTASY XIV, The Lodestone
+ 
+再現する動きは以下。
+
+地面にオレンジ色の予兆が出現
+
+予兆が発光・点滅する
+
+爆発直前に光が強くなる
+
+地面から円形の衝撃波が広がる
+
+火花や炎が飛び散る
+
+爆発後、次の地点に予兆が出現
+
+これを一定方向に連続して繰り返す
+
+制作全体の構成
+UE5 Exaflare Project
+BP_ExaflareController
+
+全体の制御
+
+発生方向
+
+爆発間隔
+
+爆発回数
+
+座標管理
+
+BP_ExaflarePoint
+
+1発ごとの管理
+
+予兆
+
+爆発タイミング
+
+次地点
+
+BP_ExaflareVFX
+
+演出管理
+
+Niagara再生
+
+発光制御
+
+消去
+
+M_Exaflare
+
+予兆マテリアル
+
+NS_Exaflare
+
+爆発Niagara
+
+STEP 1：プロジェクトとフォルダを作る
+UE5でBlankプロジェクトを作成し、次のフォルダ構成にする。
+
+
+text
+
+Content/
+└── Exaflare/
+    ├── Blueprint/
+    │   ├── BP_ExaflareController
+    │   ├── BP_ExaflarePoint
+    │   └── BP_ExaflareVFX
+    │
+    ├── Niagara/
+    │   ├── NS_ExaflareExplosion
+    │   ├── NS_ExaflareSparks
+    │   └── NS_ExaflareSmoke
+    │
+    ├── Materials/
+    │   ├── M_ExaflareWarning
+    │   ├── M_ExaflareArrow
+    │   ├── M_ExaflareShockwave
+    │   └── M_ExaflareFire
+    │
+    ├── Meshes/
+    │   ├── SM_ExaflareWarning
+    │   └── SM_ExaflareShockwave
+    │
+    └── Textures/
+        ├── T_ExaflareArrow
+        ├── T_ExaflareNoise
+        └── T_ExaflareRadial
+まずは地面を作る。
+
+Planeを配置する。
+
+サイズを2000×2000程度にする。
+
+Z座標を0にする。
+
+床にチェッカーテクスチャなどを貼り、エフェクトの位置が分かるようにする。
+
+この段階ではキャラクターやボスは不要。
+
+STEP 2：エクサフレアの予兆を作る
+【突撃ナレッジVol 1】ほぼ共通ギミックリスト : No Macro Strike FF14
+ 
+ここがFF14らしさを出す重要な部分。
+
+予兆は円形の光だけではなく、中心部分に矢印状の模様を入れる。
+
+2-1. 予兆用メッシュ
+SM_ExaflareWarning を作る。
+
+おすすめの構造は以下。
+
+円形の薄いPlane
+
+中央の矢印形状
+
+外周のリング
+
+最初は3つのPlaneを重ねるだけでも大丈夫。
+
+2-2. マテリアル作成
+M_ExaflareWarning
+
+Material設定：
+
+項目
+
+設定
+
+Material Domain
+
+Surface
+
+Blend Mode
+
+Translucent
+
+Shading Model
+
+Unlit
+
+Two Sided
+
+ON
+
+ノード構成：
+
+
+text
+
+TextureCoordinate
+       |
+Texture Sample (Arrow)
+       |
+Multiply <--- ScalarParameter: ArrowBrightness
+       |
+Emissive Color
+
+Texture Sample (Arrow)
+       |
+Multiply <--- ScalarParameter: Opacity
+       |
+Opacity
+初期値の目安：
+
+ArrowBrightness：3.0
+
+Opacity：0.5
+
+色：オレンジ（HDRで発光）
+
+さらに Time と Sine を組み合わせれば点滅できる。
+
+例えば、
+
+O
+p
+a
+c
+i
+t
+y
+=
+0.35
++
+0.25
+sin
+⁡
+(
+T
+i
+m
+e
+×
+5
+)
+Opacity=0.35+0.25sin(Time×5)
+とすれば、ゆっくり明滅する。
+
+※マテリアル内のSineノードに接続する場合、角度はラジアンとして扱われる。
+
+STEP 3：爆発Niagaraを作る
+Ground Impact - VFX | Fab
+ 
+-  Stylized Explosion VFX Breakdown - Materials&Niagara | Unreal Engine
+
+
+- Everything you see here is made by Unreal Engine's content files folder. Everything is stock. it was challenge for me and I… | Tsotne Tkemaladze
+ 
+Niagara Ground Explosion vfx  Realistic pack 1 | Fab
+
+ 
+ここからNiagaraを作っていく。
+
+NS_ExaflareExplosion を新規作成する。
+
+最初は以下の4つのEmitterに分けると調整しやすい。
+
+Emitter
+
+役割
+
+E_ExaflareFlash
+
+爆発の瞬間の閃光
+
+E_ExaflareRing
+
+地面に広がる衝撃波
+
+E_ExaflareSparks
+
+火花
+
+E_ExaflareSmoke
+
+煙・残留エネルギー
+
+3-1. 爆発の閃光
+E_ExaflareFlash
+
+設定の目安：
+
+項目
+
+値
+
+Spawn Count
+
+1
+
+Lifetime
+
+0.15秒
+
+Initial Size
+
+250
+
+Color
+
+白～オレンジ
+
+Renderer
+
+Sprite Renderer
+
+爆発の瞬間に大きく光って、すぐに消えるようにする。
+
+3-2. 衝撃波
+E_ExaflareRing
+
+衝撃波は円形メッシュを使う。
+
+Explosion Shockwave VFX – Impact Ring Effects for Unreal Engine | Fab
+ 
+おすすめの方法は、円形のリングメッシュを用意してNiagaraのMesh Rendererで表示すること。
+
+初期スケール：0.1
+
+最終スケール：3.0
+
+Lifetime：0.5秒
+
+色：白からオレンジ
+
+Opacity：1から0
+
+NiagaraのParticle Updateにスケールとカラーの補間を入れる。
+
+3-3. 火花
+E_ExaflareSparks
+
+設定の目安：
+
+項目
+
+値
+
+Spawn Count
+
+30～50
+
+Lifetime
+
+0.3～0.8秒
+
+Initial Speed
+
+300～800
+
+Sprite Size
+
+5～15
+
+Gravity
+
+下方向
+
+火花の方向は円形にランダム化する。
+
+ただし、真上に飛ぶ火花と地面を這うような火花を混ぜると、FF14らしい魔法的な爆発になる。
+
+3-4. 煙
+E_ExaflareSmoke
+
+Spawn Count：5～10
+
+Lifetime：0.8～1.5秒
+
+Size：50～120
+
+Color：暗いオレンジ～グレー
+
+Alpha：時間経過で0
+
+煙は主役ではないので、強くしすぎない。
+
+NiagaraのEmitterやRendererの基本操作はEpic公式資料も参考になる。
+
+Niagaraクイックスタート（日本語） 
+
+Niagaraシステムの仕組み 
+
+Niagara Rendererリファレンス 
+
+STEP 4：Blueprintで爆発を連続発生させる
+ここがエクサフレアの本体。
+
+BP_ExaflareController をActorとして作る。
+
+4-1. 変数を作る
+変数
+
+型
+
+初期値
+
+StartLocation
+
+Vector
+
+(0,0,10)
+
+Direction
+
+Vector
+
+(1,0,0)
+
+Distance
+
+Float
+
+300
+
+Interval
+
+Float
+
+0.8
+
+MaxCount
+
+Integer
+
+8
+
+CurrentCount
+
+Integer
+
+0
+
+WarningTime
+
+Float
+
+1.5
+
+bRunning
+
+Boolean
+
+False
+
+この値は制作開始時の仮設定。後から実際の見た目に合わせて調整する。
+
+4-2. Blueprintの処理
+まず StartExaflare というCustom Eventを作る。
+
+
+text
+
+StartExaflare
+    |
+    v
+Set CurrentCount = 0
+    |
+    v
+Set bRunning = true
+    |
+    v
+Spawn Warning
+    |
+    v
+Set Timer by Event
+    |
+    v
+OnExaflareTimer
+続いて OnExaflareTimer を作る。
+
+
+text
+
+OnExaflareTimer
+    |
+    v
+Spawn NS_ExaflareExplosion
+    |
+    v
+CurrentCount + 1
+    |
+    v
+CurrentCount < MaxCount ?
+    |
+   / \
+ Yes  No
+  |    |
+  v    v
+次地点  bRunning=false
+計算   終了
+  |
+  v
+Spawn Warning
+  |
+  v
+次のTimerを設定
+重要なのは、次の地点の座標を毎回計算すること。
+
+計算式：
+
+P
+n
+=
+P
+0
++
+D
+×
+S
+×
+n
+P 
+n
+​
+ =P 
+0
+​
+ +D×S×n
+P
+0
+P 
+0
+​
+ ：最初の爆発地点
+
+D
+D：進行方向の単位ベクトル
+
+S
+S：地点間の距離
+
+n
+n：現在の爆発番号
+
+Blueprintでは以下のノードを使う。
+
+Vector * Float
+
+Vector + Vector
+
+Spawn Actor From Class
+
+Spawn System at Location
+
+Set Timer by Event
+
+Timerの基本的な仕組みはEpic公式の資料にも載っている。
+
+Using Timers - Unreal Engine 
+STEP 5：予兆と爆発のタイミングを同期する
+ここはSTEP 4のBlueprintを少し発展させる。
+
+おすすめは、予兆Actorと爆発Actorを別々に管理する方法。
+
+BP_ExaflarePoint を作り、以下の変数を用意する。
+
+変数
+
+型
+
+WarningMesh
+
+Static Mesh Component
+
+ExplosionSystem
+
+Niagara System
+
+WarningDuration
+
+Float
+
+PointIndex
+
+Integer
+
+処理は次のようにする。
+
+1発分の処理
+
+予兆表示
+
+地面に矢印と円形の光を表示する
+
+予兆時間
+
+1.5秒ほど点滅させる
+
+爆発
+
+Niagaraを再生し、予兆メッシュを非表示にする
+
+次の地点
+
+進行方向に300cm移動した位置に次の予兆を出す
+
+繰り返し
+
+指定回数まで同じ処理を行う
+
+実際のBlueprintの接続は次のようになる。
+
+
+text
+
+Event BeginPlay
+     |
+     v
+Spawn Warning
+     |
+     v
+Set Timer by Event
+  Time = WarningTime
+     |
+     v
+Event: Detonate
+     |
+     +----> Spawn Niagara System
+     |
+     +----> Hide Warning Mesh
+     |
+     v
+CurrentCount = CurrentCount + 1
+     |
+     v
+Branch (CurrentCount < MaxCount)
+     |
+     +---- True
+     |      |
+     |      v
+     |   NextLocation =
+     |   CurrentLocation + Direction * Distance
+     |      |
+     |      v
+     |   Spawn Next Warning
+     |      |
+     |      v
+     |   Set Timer by Event
+     |
+     +---- False
+            |
+            v
+          End
+この構成なら、各地点の予兆時間を個別に調整できる。
+
+さらにFF14らしくするなら、次の予兆が表示されている間に、前の地点の爆発エフェクトが残るようにする。 そのため、爆発後すぐにエフェクトを消さず、Niagara自身のLifetimeで消えるようにしておく。
+
+STEP 6：進行方向を自由に変えられるようにする
+エクサフレアを再現するなら、直線だけでなく斜め方向や複数列にも対応させたい。
+
+例えば次のような配置。
+
+配置イメージ（上から見た図）
+
+
+オレンジの円は爆発・予兆地点のイメージ
+
+Blueprintの Direction を変更するだけで、進行方向を変えられる。
+
+例：
+
+方向
+
+Direction
+
+右
+
+(1, 0, 0)
+
+左
+
+(-1, 0, 0)
+
+上
+
+(0, 1, 0)
+
+下
+
+(0, -1, 0)
+
+右上
+
+(0.707, 0.707, 0)
+
+斜め方向は必ずNormalizeしておく。
+
+複数列を同時に再現する場合は、Controllerから複数のExaflarePointを生成し、それぞれに別の開始位置と方向を渡す。
+
+STEP 7：FF14らしい見た目に仕上げる
+ここが最も時間をかけるところ。
+
+【FF14】アルカディアの統一王者、ヘビー級3層のタイラントさんの感想→「ベヒーモスの魂なのに最大の大技がジャスティスキック」「”アルカディアを、なめるなァァァ”は名言」｜馬鳥速報
+ 
+【突撃ナレッジVol 1】ほぼ共通ギミックリスト : No Macro Strike FF14
+ 
+Asagi Dia 日記「初心者向けの範囲攻撃の予兆一覧と解説(全ジョブの設置型範囲一覧も)」 | FINAL FANTASY XIV, The Lodestone
+
+ 
+見た目を近づけるために、次の要素を調整する。
+
+要素
+
+表現
+
+予兆
+
+オレンジ～黄色の発光
+
+中心
+
+白に近い強い発光
+
+爆発
+
+一瞬だけ強いフラッシュ
+
+衝撃波
+
+地面を這う円形リング
+
+火花
+
+黄色・橙色の小粒子
+
+残留エフェクト
+
+薄い煙と光の粒子
+
+特に大事な3つ
+爆発の瞬間に白いフラッシュを入れる。
+
+爆発の外側にオレンジの衝撃波を出す。
+
+地面の予兆は爆発直前に発光を強くする。
+
+Bloom（発光）を使うと、よりゲーム内の魔法エフェクトらしくなる。
+
+ただし、Bloomを強くしすぎると予兆の模様が見えなくなるので注意。
+
+STEP 8：カメラとライティング
+最初はFF14の戦闘画面に近い斜め上からのカメラがおすすめ。
+
+Camera Pitch：およそ-45度
+
+Field of View：45～60度
+
+Directional Light：弱め
+
+Post Process Volume：Bloom有効
+
+Exposure：固定
+
+エフェクト単体を確認するときは、暗めの床と背景を使うと発光の調整がしやすい。
+
+STEP 9：完成チェック
+まずは以下の数値で動作確認してみよう。
+
+初期テスト設定
+爆発回数
+
+8
+地点間隔
+
+300cm
+予兆時間
+
+1.5秒
+発生間隔
+
+0.8秒
+完成確認リスト
+
+0/8 完了
+
+0%
+
+
+予兆が地面に正しく表示される
+
+予兆の点滅が動作する
+
+爆発が正しい位置で発生する
+
+衝撃波が地面に沿って広がる
+
+火花と煙が表示される
+
+次の爆発地点に正しく移動する
+
+8回で自動停止する
+
+複数列を同時に再生できる
+公式資料
+制作中は以下をブックマークしておくと便利。
+
+Epic公式 Niagara VFX制作ガイド 
+
+Niagara User Parameters 
+
+Unreal Engine タイマー 
+
+Niagara Mesh Renderer 
+
+なお、FF14の完全なゲームデータやエフェクトをそのまま抽出するのではなく、動きや色、形状を観察してオリジナルの素材で再現する方針がおすすめ。
+
+次に取り組むべきこと
+個人的には、次は Niagaraの爆発をFF14のエクサフレアに近づける作業をやりたい。
+
+そのために、以下の順番で作るといい。
+
+予兆の矢印テクスチャ
+
+円形の爆発メッシュ
+
+白・黄色・オレンジの発光
+
+地面を走る衝撃波
+
+火花と残留エネルギー
+
+次は実際のUE5のNiagara Editorで、爆発エフェクトを作る手順をノード単位で解説できるよ。 まずは爆発部分をFF14らしい見た目に仕上げよう。
+
+
+ChatGPT は AI であり、間違えることがあります。
+
+
+ChatGPT とチャット
+ChatGPT に聞く
+
